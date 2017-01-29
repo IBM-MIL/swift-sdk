@@ -56,7 +56,7 @@ public struct ConceptsResult: JSONDecodable,JSONEncodable {
     public init(json: JSON) throws {
         name = try? json.getString(at: "name")
         relevance = try? json.getDouble(at: "relevance")
-        dbpediaResource = try? json.getJSON(at: "dbpedia_resource") as! DBpediaResource
+        dbpediaResource = try? json.decode(at: "dbpedia_resource", type: DBpediaResource.self)
     }
 
     // MARK: JSONEncodable

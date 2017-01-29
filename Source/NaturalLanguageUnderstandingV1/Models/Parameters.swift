@@ -82,7 +82,7 @@ public struct Parameters: JSONDecodable,JSONEncodable {
         text = try? json.getString(at: "text")
         html = try? json.getString(at: "html")
         url = try? json.getString(at: "url")
-        features = try json.getJSON(at: "features") as! Features
+        features = try json.decode(at: "features", type: Features.self)
         clean = try? json.getBool(at: "clean")
         xpath = try? json.getString(at: "xpath")
         fallbackToRaw = try? json.getBool(at: "fallback_to_raw")

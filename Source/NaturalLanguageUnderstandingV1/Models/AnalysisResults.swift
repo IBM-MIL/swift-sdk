@@ -25,8 +25,10 @@ public struct AnalysisResults: JSONDecodable,JSONEncodable {
     public let analyzedText: String?
     /// URL that was used to retrieve HTML content
     public let retrievedUrl: String?
-    public let usage: Any?
-    public let features: Any?
+    /// The number of features used in the API call
+    public let usage: Usage?
+    /// The results returned by the features used to analyze the text
+    public let features: FeaturesResults?
 
     /**
      Initialize a `AnalysisResults` with required member variables.
@@ -47,12 +49,12 @@ public struct AnalysisResults: JSONDecodable,JSONEncodable {
      - parameter language: Language used to analyze the text
      - parameter analyzedText: Text that was used in the analysis
      - parameter retrievedUrl: URL that was used to retrieve HTML content
-     - parameter usage: 
-     - parameter features: 
+     - parameter usage: The number of features used in the API call
+     - parameter features: The results returned by the features used to analyze the text
 
     - returns: An initialized `AnalysisResults`.
     */
-    public init(language: String, analyzedText: String, retrievedUrl: String, usage: Any, features: Any) {
+    public init(language: String, analyzedText: String, retrievedUrl: String, usage: Usage, features: FeaturesResults) {
         self.language = language
         self.analyzedText = analyzedText
         self.retrievedUrl = retrievedUrl
@@ -66,8 +68,8 @@ public struct AnalysisResults: JSONDecodable,JSONEncodable {
         language = try? json.getString(at: "language")
         analyzedText = try? json.getString(at: "analyzed_text")
         retrievedUrl = try? json.getString(at: "retrieved_url")
-        usage = try? json.getJSON(at: "usage")
-        features = try? json.getJSON(at: "features")
+        usage = try? json.decode(at: "usage", type: Usage.self)
+        features = try? json.decode(at: "features", type: FeaturesResults.self)
     }
 
     // MARK: JSONEncodable

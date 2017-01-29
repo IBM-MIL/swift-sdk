@@ -76,15 +76,15 @@ public struct Features: JSONDecodable,JSONEncodable {
     // MARK: JSONDecodable
     /// Used internally to initialize a `Features` model from JSON.
     public init(json: JSON) throws {
-        concepts = try? json.getJSON(at: "concepts") as! ConceptsOptions
-        emotion = try? json.getJSON(at: "emotion") as! EmotionOptions
-        entities = try? json.getJSON(at: "entities") as! EntitiesOptions
-        keywords = try? json.getJSON(at: "keywords") as! KeywordsOptions
-        metadata = try? json.getJSON(at: "metadata") as! MetadataOptions
-        relations = try? json.getJSON(at: "relations") as! RelationsOptions
-        semanticRoles = try? json.getJSON(at: "semantic_roles") as! SemanticRolesOptions
-        sentiment = try? json.getJSON(at: "sentiment") as! SentimentOptions
-        categories = try? json.getJSON(at: "categories") as! CategoriesOptions
+        concepts = try? json.decode(at: "concepts", type: ConceptsOptions.self)
+        emotion = try? json.decode(at: "emotion", type: EmotionOptions.self)
+        entities = try? json.decode(at: "entities", type: EntitiesOptions.self)
+        keywords = try? json.decode(at: "keywords", type: KeywordsOptions.self)
+        metadata = try? json.decode(at: "metadata", type: MetadataOptions.self)
+        relations = try? json.decode(at: "relations", type: RelationsOptions.self)
+        semanticRoles = try? json.decode(at: "semantic_roles", type: SemanticRolesOptions.self)
+        sentiment = try? json.decode(at: "sentiment", type: SentimentOptions.self)
+        categories = try? json.decode(at: "categories", type: CategoriesOptions.self)
     }
 
     // MARK: JSONEncodable

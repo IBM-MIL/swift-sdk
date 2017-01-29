@@ -17,6 +17,40 @@
 import Foundation
 import RestKit
 
-public typealias CategoriesOptions = Any
+public struct CategoriesOptions: JSONDecodable,JSONEncodable {
+    public let dummy: Int?
 
+    /**
+     Initialize a `CategoriesOptions` with required member variables.
 
+     - returns: An initialized `CategoriesOptions`.
+    */
+    public init() {
+        self.dummy = nil
+    }
+
+    /**
+    Initialize a `CategoriesOptions` with all member variables.
+
+     - parameter dummy: 
+
+    - returns: An initialized `CategoriesOptions`.
+    */
+    public init(dummy: Int) {
+        self.dummy = dummy
+    }
+
+    // MARK: JSONDecodable
+    /// Used internally to initialize a `CategoriesOptions` model from JSON.
+    public init(json: JSON) throws {
+        dummy = try? json.getInt(at: "dummy")
+    }
+
+    // MARK: JSONEncodable
+    /// Used internally to serialize a `CategoriesOptions` model to JSON.
+    public func toJSONObject() -> Any {
+        var json = [String: Any]()
+        if let dummy = dummy { json["dummy"] = dummy }
+        return json
+    }
+}

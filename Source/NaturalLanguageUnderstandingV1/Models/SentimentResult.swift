@@ -47,7 +47,7 @@ public struct SentimentResult: JSONDecodable,JSONEncodable {
     // MARK: JSONDecodable
     /// Used internally to initialize a `SentimentResult` model from JSON.
     public init(json: JSON) throws {
-        document = try? json.getJSON(at: "document") as! DocumentSentimentResults
+        document = try? json.decode(at: "document", type: DocumentSentimentResults.self)
         targets = try? json.decodedArray(at: "targets", type: TargetedSentimentResults.self)
     }
 

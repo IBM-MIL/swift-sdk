@@ -17,8 +17,11 @@
 import Foundation
 import RestKit
 
+/** The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be returned for detected entities, keywords, or user-specified target phrases found in the text */
 public struct EmotionResult: JSONDecodable,JSONEncodable {
+    /// The returned emotion results across the document
     public let document: DocumentEmotionResults?
+    /// The returned emotion results per specified target
     public let targets: [TargetedEmotionResults]?
 
     /**
@@ -34,8 +37,8 @@ public struct EmotionResult: JSONDecodable,JSONEncodable {
     /**
     Initialize a `EmotionResult` with all member variables.
 
-     - parameter document: 
-     - parameter targets: 
+     - parameter document: The returned emotion results across the document
+     - parameter targets: The returned emotion results per specified target
 
     - returns: An initialized `EmotionResult`.
     */
@@ -47,7 +50,7 @@ public struct EmotionResult: JSONDecodable,JSONEncodable {
     // MARK: JSONDecodable
     /// Used internally to initialize a `EmotionResult` model from JSON.
     public init(json: JSON) throws {
-        document = try? json.getJSON(at: "document") as! DocumentEmotionResults
+        document = try? json.decode(at: "document", type: DocumentEmotionResults.self)
         targets = try? json.decodedArray(at: "targets", type: TargetedEmotionResults.self)
     }
 

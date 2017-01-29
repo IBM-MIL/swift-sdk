@@ -17,6 +17,40 @@
 import Foundation
 import RestKit
 
-public typealias MetadataOptions = Any
+public struct MetadataOptions: JSONDecodable,JSONEncodable {
+    public let dummy: Int?
 
+    /**
+     Initialize a `MetadataOptions` with required member variables.
 
+     - returns: An initialized `MetadataOptions`.
+    */
+    public init() {
+        self.dummy = nil
+    }
+
+    /**
+    Initialize a `MetadataOptions` with all member variables.
+
+     - parameter dummy: 
+
+    - returns: An initialized `MetadataOptions`.
+    */
+    public init(dummy: Int) {
+        self.dummy = dummy
+    }
+
+    // MARK: JSONDecodable
+    /// Used internally to initialize a `MetadataOptions` model from JSON.
+    public init(json: JSON) throws {
+        dummy = try? json.getInt(at: "dummy")
+    }
+
+    // MARK: JSONEncodable
+    /// Used internally to serialize a `MetadataOptions` model to JSON.
+    public func toJSONObject() -> Any {
+        var json = [String: Any]()
+        if let dummy = dummy { json["dummy"] = dummy }
+        return json
+    }
+}
